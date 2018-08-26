@@ -9,16 +9,16 @@ class GoodsCategory(models.Model):
     """
     商品类别
     """
-    CATEGORY_TYPE = {
-        (1, '一级类目'),
-        (2, '二级类目'),
-        (3, '三级类目'),
-    }
+    CATEGORY_TYPE = (
+        (1, "一级类目"),
+        (2, "二级类目"),
+        (3, "三级类目"),
+    )
 
     name = models.CharField(default='', max_length=30, verbose_name='类别名', help_text='类别名')
     code = models.CharField(default='', max_length=30, verbose_name='类别code', help_text='类别code')
     desc = models.TextField(default='', verbose_name='类别描述', help_text='类别描述')
-    category_type = models.CharField(choices=CATEGORY_TYPE, max_length=20, verbose_name='类目级别', help_text='类目级别')
+    category_type = models.IntegerField(choices=CATEGORY_TYPE, max_length=20, verbose_name='类目级别', help_text='类目级别')
     parent_category = models.ForeignKey('self', null=True, blank=True, verbose_name='父级目录', help_text='父级目录',
                                         related_name='sub_cat', on_delete=models.CASCADE)
     is_tab = models.BooleanField(default=False, verbose_name='是否导航', help_text='是否导航')
@@ -76,7 +76,7 @@ class Goods(models.Model):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-       return self.name
+        return self.name
 
 
 class GoodsImage(models.Model):
